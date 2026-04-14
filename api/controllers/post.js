@@ -52,7 +52,7 @@ export const createPost = (req, res) => {
     ];
 
     db.query(q, values, (err, data) => {
-      if (err) return res.status(500).json(err);
+      if (err) { console.error("CREATE POST ERROR:", err); return res.status(500).json(err); }
       return res.status(201).json("Post has been created.");
     });
   });
