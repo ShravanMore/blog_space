@@ -25,12 +25,24 @@ CREATE TABLE IF NOT EXISTS posts (
     `desc`   TEXT,
     img      VARCHAR(255) DEFAULT NULL,
     category VARCHAR(100) DEFAULT NULL,
+    views    INT DEFAULT 0,
     date     DATETIME DEFAULT CURRENT_TIMESTAMP,
     uid      INT NOT NULL,
     FOREIGN KEY (uid) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Step 5: Verify tables were created
+-- Step 5: Create the 'likes' table
+CREATE TABLE IF NOT EXISTS likes (
+    id  INT AUTO_INCREMENT PRIMARY KEY,
+    uid INT NOT NULL,
+    pid INT NOT NULL,
+    CONSTRAINT unq_like UNIQUE (uid, pid),
+    FOREIGN KEY (uid) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (pid) REFERENCES posts(id) ON DELETE CASCADE
+);
+
+-- Step 6: Verify tables were created
 SHOW TABLES;
 DESCRIBE users;
 DESCRIBE posts;
+DESCRIBE likes;
