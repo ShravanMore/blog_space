@@ -41,7 +41,7 @@ export const getPost = (req, res) => {
   const token = req.cookies.access_token;
   let userId = null;
   if (token) {
-    jwt.verify(token, "jwtkey", (err, userInfo) => {
+    jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
       if (!err) userId = userInfo.id;
     });
   }
@@ -67,7 +67,7 @@ export const createPost = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not authenticated!");
 
-  jwt.verify(token, "jwtkey", (err, userInfo) => {
+  jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const q = `
@@ -96,7 +96,7 @@ export const deletePost = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not authenticated!");
 
-  jwt.verify(token, "jwtkey", (err, userInfo) => {
+  jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const postId = req.params.id;
@@ -118,7 +118,7 @@ export const updatePost = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not authenticated!");
 
-  jwt.verify(token, "jwtkey", (err, userInfo) => {
+  jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const q = `
@@ -155,7 +155,7 @@ export const toggleLike = (req, res) => {
   const token = req.cookies.access_token;
   if (!token) return res.status(401).json("Not authenticated!");
 
-  jwt.verify(token, "jwtkey", (err, userInfo) => {
+  jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const qCheck = "SELECT * FROM likes WHERE uid = ? AND pid = ?";
@@ -218,7 +218,7 @@ export const toggleLike = (req, res) => {
 //     const token = req.cookies.access_token;
 //     if (!token) return res.status(401).json("Not authenticated!");
 
-//     jwt.verify(token, "jwtkey", (err, userInfo) => {
+//     jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
 //         if (err) return res.status(403).json("Token is not valid!");
 
 //         const q = "insert into posts(`title`, `desc`, `img`, `category`, `date`, `uid`) values (?)";
@@ -241,7 +241,7 @@ export const toggleLike = (req, res) => {
 //     const token = req.cookies.access_token;
 //     if (!token) return res.status(401).json("Not authenticated!");
 
-//     jwt.verify(token, "jwtkey", (err, userInfo) => {
+//     jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
 //         if (err) return res.status(403).json("Token is not valid!");
 
 //         const postId = req.params.id;
@@ -264,7 +264,7 @@ export const toggleLike = (req, res) => {
 //     const token = req.cookies.access_token;
 //     if (!token) return res.status(401).json("Not authenticated!");
 
-//     jwt.verify(token, "jwtkey", (err, userInfo) => {
+//     jwt.verify(token, process.env.JWT_SECRET || "jwtkey", (err, userInfo) => {
 //         if (err) return res.status(403).json("Token is not valid!");
 
 //          const q = "update posts set `title` = ?, `desc` = ?, `img` = ?, `category` = ? where id = ? and uid = ?";
