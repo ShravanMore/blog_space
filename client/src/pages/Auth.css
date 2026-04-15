@@ -1,0 +1,113 @@
+/* Auth pages (Login & Register) */
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 50% at 30% 50%, rgba(124,111,247,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 70% 50%, rgba(232,93,159,0.1) 0%, transparent 55%),
+    var(--clr-bg);
+  z-index: 0;
+}
+
+.auth__card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1rem;
+}
+
+.auth__card-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.auth__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--clr-accent-glow);
+  border: 1.5px solid rgba(124,111,247,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-accent-light);
+  margin-bottom: 0.25rem;
+}
+.auth__icon--register {
+  background: var(--clr-accent2-glow);
+  border-color: rgba(232,93,159,0.3);
+  color: var(--clr-accent2);
+}
+
+.auth__title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--clr-white);
+}
+
+.auth__subtitle {
+  font-size: 0.875rem;
+  color: var(--clr-text-muted);
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth__submit {
+  width: 100%;
+  justify-content: center;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.auth__footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--clr-border);
+}
+
+.auth__link {
+  color: var(--clr-accent-light);
+  font-weight: 600;
+  transition: var(--transition);
+}
+.auth__link:hover { color: var(--clr-accent); }
+
+@media (max-width: 480px) {
+  .auth__card {
+    padding: 1.75rem;
+    border-radius: var(--radius-md);
+  }
+}
