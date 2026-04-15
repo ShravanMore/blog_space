@@ -6,36 +6,33 @@ const dbConfig = {
   password: process.env.DB_PASSWORD || 'Mysql@2005',
   database: process.env.DB_NAME || 'blog',
   port: process.env.DB_PORT || 3306,
-  connectTimeout: 60000, // 60 seconds
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  connectTimeout: 60000,
   ssl: process.env.NODE_ENV === 'production' ? {
     rejectUnauthorized: true
   } : false
 };
 
-const db = mysql.createConnection(dbConfig);
+// Use connection pool instead of single connection
+const pool = mysql.createPool(dbConfig);
 
-// Handle connection errors
-db.on('error', (err) => {
-  console.error('Database error:', err);
-  if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ETIMEDOUT') {
-    console.log('Attempting to reconnect to database...');
-  }
-});
-
-// Test connection
-db.connect((err) => {
+// Test the connection
+pool.getConnection((err, connection) => {
   if (err) {
-    console.error('Error connecting to database:', err);
+    console.error('Error connecting to database:', err.message);
     console.error('Connection config:', {
       host: dbConfig.host,
       port: dbConfig.port,
       user: dbConfig.user,
-      database: dbConfig.database,
-      ssl: dbConfig.ssl
+      database: dbConfig.database
     });
   } else {
     console.log('Successfully connected to database');
+    connection.release();
   }
 });
 
-export default db;
+// Export the pool
+export default pool;
