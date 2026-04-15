@@ -37,6 +37,7 @@ A modern, full-stack blog platform built with React, Node.js, Express, and MySQL
 - Node.js (v18 or higher)
 - MySQL (v8 or higher)
 - npm or yarn
+- Cloudinary account (free tier) - [Get it here](https://cloudinary.com)
 
 ### Installation
 
@@ -55,30 +56,36 @@ A modern, full-stack blog platform built with React, Node.js, Express, and MySQL
    source database_setup.sql
    ```
 
-3. **Setup Backend**
+3. **Setup Cloudinary** (Required for file uploads)
+   - See [CLOUDINARY_QUICK_START.md](./CLOUDINARY_QUICK_START.md) for 5-minute setup
+   - Get your credentials from https://cloudinary.com/console
+
+4. **Setup Backend**
    ```bash
    cd api
    npm install
    
-   # Create .env file (already created, update if needed)
-   # Update DB credentials in .env file
+   # Update .env file with your credentials:
+   # - Database credentials
+   # - Cloudinary credentials (REQUIRED)
+   # - JWT secret
    
    npm run dev
    ```
    Backend will run on http://localhost:3000
 
-4. **Setup Frontend**
+5. **Setup Frontend**
    ```bash
    cd client
    npm install
-   
-   # .env file already created
    
    npm run dev
    ```
    Frontend will run on http://localhost:5173
 
 ## Deployment
+
+**Important**: Before deploying, setup Cloudinary for file uploads. See [CLOUDINARY_QUICK_START.md](./CLOUDINARY_QUICK_START.md) for 5-minute setup.
 
 See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
 
@@ -122,7 +129,12 @@ DB_NAME=blog
 JWT_SECRET=your_secret_key
 CLIENT_URL=http://localhost:5173
 NODE_ENV=development
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
+
+Get Cloudinary credentials from https://cloudinary.com/console (free tier available)
 
 ### Frontend (.env)
 ```
@@ -163,6 +175,19 @@ This project is open source and available under the MIT License.
 
 ## Support
 
-For deployment help, see [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+### 📚 Documentation
 
-For issues and questions, please open an issue on GitHub.
+- **[SETUP_SUMMARY.md](./SETUP_SUMMARY.md)** - Overview of all changes and setup
+- **[PRE_DEPLOYMENT_CHECKLIST.md](./PRE_DEPLOYMENT_CHECKLIST.md)** - Complete checklist before deploying
+- **[CLOUDINARY_QUICK_START.md](./CLOUDINARY_QUICK_START.md)** - 5-minute Cloudinary setup
+- **[CLOUDINARY_VISUAL_GUIDE.md](./CLOUDINARY_VISUAL_GUIDE.md)** - Step-by-step visual guide
+- **[CLOUDINARY_SETUP.md](./CLOUDINARY_SETUP.md)** - Detailed Cloudinary documentation
+- **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - Complete deployment instructions
+
+### 🐛 Troubleshooting
+
+For issues and questions:
+1. Check the relevant guide above
+2. Review the troubleshooting sections
+3. Check deployment platform logs
+4. Open an issue on GitHub
