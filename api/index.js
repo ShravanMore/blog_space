@@ -5,12 +5,13 @@ import userRoutes from './routes/users.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import multer  from 'multer';
+import 'dotenv/config';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'http://localhost:5173',  // frontend's address
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',  // frontend's address
   credentials: true,                // allow cookies
 }));
 
