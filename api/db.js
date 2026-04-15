@@ -11,7 +11,7 @@ const dbConfig = {
   queueLimit: 0,
   connectTimeout: 60000,
   ssl: process.env.NODE_ENV === 'production' ? {
-    rejectUnauthorized: true
+    rejectUnauthorized: false  // Changed to false for Aiven
   } : false
 };
 
