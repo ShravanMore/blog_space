@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import 'dotenv/config';
 import { storage } from './config/cloudinaryConfig.js';
+import db from './db.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,30 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Test database connection endpoint
+app.get('/api/test-db', async (req, res) => {
+  try {
+    db.query('SELECT 1 + 1 AS result', (err, results) => {
+      if (err) {
+        return res.status(500).json({ 
+          error: 'Database connection failed', 
+          details: err.message 
+        });
+      }
+      res.json({ 
+        success: true, 
+        message: 'Database connected successfully',
+        result: results 
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      error: 'Database test failed', 
+      details: error.message 
+    });
+  }
+});
 
 // Configure multer with Cloudinary storage
 const upload = multer({
